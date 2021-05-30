@@ -32,7 +32,7 @@
 
 using namespace ass;
 
-void WelcomePage::inflate(const _<AViewContainer>& container, const InstallerModel& model) {
+void WelcomePage::inflate(const _<AViewContainer>& container, InstallerModel& model) {
     container->setLayout(_new<AStackedLayout>());
     container->addView(
         Horizontal {
@@ -45,4 +45,8 @@ void WelcomePage::inflate(const _<AViewContainer>& container, const InstallerMod
                 it->setCustomAss(Padding { 8_dp });
             }
         } let { it->setExpanding({2, 2});});
+}
+
+void WelcomePage::deflate(const _<AViewContainer>& container, InstallerModel& model) {
+
 }

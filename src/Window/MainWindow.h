@@ -40,7 +40,7 @@ private:
 
     AVector<_<IPage>> mPages;
 
-    int mCurrentPageId;
+    int mCurrentPageId = -1;
 
     void setPage(int pageId);
 
@@ -48,6 +48,14 @@ public:
 
     MainWindow();
 
+
+    const _<AButton>& getBackButton() const {
+        return mBackButton;
+    }
+
+    const _<AButton>& getNextButton() const {
+        return mNextButton;
+    }
 };
 
 

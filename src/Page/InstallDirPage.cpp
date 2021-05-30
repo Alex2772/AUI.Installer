@@ -30,11 +30,16 @@
 #include <AUI/View/ACheckBox.h>
 #include <AUI/View/APathChooserView.h>
 
-void InstallDirPage::inflate(const _<AViewContainer>& container, const InstallerModel& model) {
+void InstallDirPage::inflate(const _<AViewContainer>& container, InstallerModel& model) {
+    mBinding = _new<ADataBinding<InstallerModel>>(&model);
     container->setLayout(_new<AVerticalLayout>());
     container->addView(Vertical {
         _new<ALabel>("Install folder") << ".title",
         _new<ALabel>("Please specify program installation folder:"),
-        _new<APathChooserView>()
+        _new<APathChooserView>() && mBinding(&InstallerModel::installationFolder)
     } << ".padded-page");
+}
+
+void InstallDirPage::deflate(const _<AViewContainer>& container, InstallerModel& model) {
+    mBinding = nullptr;
 }

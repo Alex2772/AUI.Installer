@@ -27,6 +27,8 @@
 #include <Window/MainWindow.h>
 
 AUI_ENTRY {
-    _new<MainWindow>()->show();
+    auto w = _new<MainWindow>();
+    Autumn::put(w);
+    w->show();
     return 0;
 };

@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.10)
 
 find_package(AUI REQUIRED)
 
-set(PROJECT_NAME "Your application installer")
+set(PROJECT_NAME "Your application name")
 
 if(NOT ANDROID)
     if (TARGET AUI.Views)

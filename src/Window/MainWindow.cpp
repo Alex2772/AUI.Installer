@@ -26,16 +26,13 @@
 
 #include <AUI/Util/UIBuildingHelpers.h>
 #include "MainWindow.h"
-#include <Page/WelcomePage.h>
-
 #include <AUI/ASS/ASS.h>
-#include <Page/LicensePage.h>
-#include <Page/InstallDirPage.h>
+#include <User/ProjectConfig.h>
 
 using namespace ass;
 
 MainWindow::MainWindow():
-        AWindow("Installer", 400_dp, 300_dp, nullptr, WS_NO_MINIMIZE_MAXIMIZE)
+        AWindow(PROJECT_NAME, 400_dp, 300_dp, nullptr, WS_NO_MINIMIZE_MAXIMIZE)
 {
     setContents(Vertical {
         Horizontal {
@@ -55,7 +52,9 @@ MainWindow::MainWindow():
         },
         Horizontal {
             _new<ASpacer>(),
-            mBackButton = _new<AButton>("< Назад"),
+            mBackButton = _new<AButton>("< Назад").connect(&AButton::clicked, this, [&] {
+                setPage(mCurrentPageId - 1);
+            }),
             mNextButton = _new<AButton>("Вперёд >").connect(&AButton::clicked, this, [&] {
                 setPage(mCurrentPageId + 1);
             }),
@@ -71,9 +70,7 @@ MainWindow::MainWindow():
         Padding { 0_dp }
     });
 
-    mPages.push_back(_new<WelcomePage>());
-    mPages.push_back(_new<LicensePage>());
-    mPages.push_back(_new<InstallDirPage>());
+    ProjectConfig::setupPages(mPages);
 
     setPage(0);
 
@@ -81,6 +78,9 @@ MainWindow::MainWindow():
 }
 
 void MainWindow::setPage(int pageId) {
+    if (mCurrentPageId >= 0) {
+        mPages[mCurrentPageId]->deflate(mContent, mInstallerModel);
+    }
     mCurrentPageId = pageId;
     mPages[pageId]->inflate(mContent, mInstallerModel);
     mBackButton->setEnabled(pageId != 0);

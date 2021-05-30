@@ -27,10 +27,11 @@
 #pragma once
 
 #include <AUI/View/AViewContainer.h>
-#include <InstallerModel.h>
+#include <User/InstallerModel.h>
 
 class IPage {
 public:
 
-    virtual void inflate(const _<AViewContainer>& container, const InstallerModel& model) = 0;
+    virtual void inflate(const _<AViewContainer>& container, InstallerModel& model) = 0;
+    virtual void deflate(const _<AViewContainer>& container, InstallerModel& model) = 0;
 };

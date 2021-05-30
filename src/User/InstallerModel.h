@@ -27,5 +27,6 @@
 #pragma once
 
 struct InstallerModel {
-
+    bool licenseAgree = false;
+    APath installationFolder = "C:\\Program Files\\" PROJECT_NAME;
 };

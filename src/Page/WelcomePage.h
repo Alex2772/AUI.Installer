@@ -32,7 +32,9 @@
 
 class WelcomePage: public IPage {
 public:
-    void inflate(const _ <AViewContainer>& container, const InstallerModel& model) override;
+    void inflate(const _ <AViewContainer>& container, InstallerModel& model) override;
+
+    void deflate(const _<AViewContainer>& container, InstallerModel& model) override;
 };
 
 

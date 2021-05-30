@@ -28,9 +28,12 @@
 #include <AUI/View/ATextField.h>
 #include <AUI/View/ACheckBox.h>
 #include <AUI/View/ATextArea.h>
+#include <Window/MainWindow.h>
 #include "LicensePage.h"
 
-void LicensePage::inflate(const _<AViewContainer>& container, const InstallerModel& model) {
+void LicensePage::inflate(const _<AViewContainer>& container, InstallerModel& model) {
+    mBinding = _new<ADataBinding<InstallerModel>>(&model);
+
     container->setLayout(_new<AVerticalLayout>());
 
     container->addView(Vertical {
@@ -39,6 +42,13 @@ void LicensePage::inflate(const _<AViewContainer>& container, const InstallerMod
             _new<ATextArea>(AString::fromUtf8(AByteBuffer::fromStream(AUrl(":license/en.txt").open()))) let {
                 it->setExpanding({2, 2});
             },
-            _new<ACheckBox>("I agree with the license above")
+            _new<ACheckBox>("I agree with the license above") && mBinding(&InstallerModel::licenseAgree)
     } << ".padded-page");
+
+    Autumn::get<MainWindow>()->getNextButton() && mBinding(&InstallerModel::licenseAgree, &AView::setEnabled);
+}
+
+void LicensePage::deflate(const _<AViewContainer>& container, InstallerModel& model) {
+    Autumn::get<MainWindow>()->getNextButton()->enable();
+    mBinding = nullptr;
 }
