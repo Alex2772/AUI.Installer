@@ -42,27 +42,19 @@ MainWindow::MainWindow():
                     it->setExpanding({2, 2});
                 },
                 _new<ASpacer>(),
-            } let {
-                it->setCustomAss({
-                    BackgroundSolid { 0xffffff_rgb },
-                });
-            }
-        } let {
-            it->setExpanding({2, 2});
-        },
+            } with_style { BackgroundSolid { 0xffffff_rgb }, }
+
+        } with_style {Expanding {2, 2}},
+
         Horizontal {
             _new<ASpacer>(),
-            mBackButton = _new<AButton>("< Назад").connect(&AButton::clicked, this, [&] {
+            mBackButton = _new<AButton>("< Back").connect(&AButton::clicked, this, [&] {
                 setPage(mCurrentPageId - 1);
             }),
-            mNextButton = _new<AButton>("Вперёд >").connect(&AButton::clicked, this, [&] {
+            mNextButton = _new<AButton>("Next >").connect(&AButton::clicked, this, [&] {
                 setPage(mCurrentPageId + 1);
             }),
-            _new<AButton>("Отмена") let {
-                it->setCustomAss({
-                    Margin { {}, {}, {}, 8_dp }
-                });
-            }
+            _new<AButton>("Отмена").connect(&AView::clicked, me::close) with_style { Margin { {}, {}, {}, 8_dp } }
         } with_style { Padding { 8_dp } }
     });
 
