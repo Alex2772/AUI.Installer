@@ -1,12 +1,14 @@
+cmake_minimum_required(VERSION 3.10)
+
 project(AUI.Installer)
 
-cmake_minimum_required(VERSION 3.10)
 
 find_package(AUI REQUIRED)
 
-set(PROJECT_NAME "Your application name")
-
-if(NOT ANDROID)
+if(WIN32)
+    if (NOT CPACK_PACKAGE_NAME)
+        set(CPACK_PACKAGE_NAME CPACK_PACKAGE_NAME)
+    endif()
     if (TARGET AUI.Views)
         AUI_Executable(AUI.Installer)
         AUI_Compile_Assets(AUI.Installer)
