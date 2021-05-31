@@ -54,7 +54,7 @@ MainWindow::MainWindow():
             mNextButton = _new<AButton>("Next >").connect(&AButton::clicked, this, [&] {
                 setPage(mCurrentPageId + 1);
             }),
-            _new<AButton>("Отмена").connect(&AView::clicked, me::close) with_style { Margin { {}, {}, {}, 8_dp } }
+            _new<AButton>("Cancel").connect(&AView::clicked, me::close) with_style { Margin { {}, {}, {}, 8_dp } }
         } with_style { Padding { 8_dp } }
     });
 
