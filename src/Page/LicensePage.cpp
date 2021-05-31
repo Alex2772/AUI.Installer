@@ -30,6 +30,9 @@
 #include <AUI/View/ATextArea.h>
 #include <Window/MainWindow.h>
 #include "LicensePage.h"
+#include <AUI/ASS/ASS.h>
+
+using namespace ass;
 
 void LicensePage::inflate(const _<AViewContainer>& container, InstallerModel& model) {
     mBinding = _new<ADataBinding<InstallerModel>>(&model);
@@ -39,8 +42,9 @@ void LicensePage::inflate(const _<AViewContainer>& container, InstallerModel& mo
     container->addView(Vertical {
             _new<ALabel>("License") << ".title",
             _new<ALabel>("Please read the following license:"),
-            _new<ATextArea>(AString::fromUtf8(AByteBuffer::fromStream(AUrl(":license/en.txt").open()))) let {
-                it->setExpanding({2, 2});
+            _new<ATextArea>(AString::fromUtf8(AByteBuffer::fromStream(AUrl(":license/en.txt").open()))) with_style {
+                Expanding { 2, 2, },
+                FontSize { 12_pt }
             },
             _new<ACheckBox>("I agree with the license above") && mBinding(&InstallerModel::licenseAgree)
     } << ".padded-page");

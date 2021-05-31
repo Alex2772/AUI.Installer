@@ -28,5 +28,5 @@
 
 struct InstallerModel {
     bool licenseAgree = false;
-    APath installationFolder = "C:\\Program Files\\" PROJECT_NAME;
+    APath installationFolder = CPACK_PACKAGE_INSTALL_DIRECTORY;
 };

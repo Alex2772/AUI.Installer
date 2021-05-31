@@ -32,19 +32,16 @@
 using namespace ass;
 
 MainWindow::MainWindow():
-        AWindow(PROJECT_NAME, 400_dp, 300_dp, nullptr, WS_NO_MINIMIZE_MAXIMIZE)
+        AWindow(CPACK_PACKAGE_NAME, 400_dp, 400_dp, nullptr, WS_NO_MINIMIZE_MAXIMIZE )
 {
     setContents(Vertical {
         Horizontal {
 
             Vertical {
-                mContent = _new<AViewContainer>() let {
-                    it->setExpanding({2, 2});
-                },
-                _new<ASpacer>(),
-            } with_style { BackgroundSolid { 0xffffff_rgb }, }
+                mContent = _new<AViewContainer>() with_style { Expanding {2, 2} }
+            } with_style { BackgroundSolid { 0xffffff_rgb }, Expanding {2, 2} }
 
-        } with_style {Expanding {2, 2}},
+        } with_style { Expanding {2, 2} },
 
         Horizontal {
             _new<ASpacer>(),
@@ -56,7 +53,7 @@ MainWindow::MainWindow():
             }),
             _new<AButton>("Cancel").connect(&AView::clicked, me::close) with_style { Margin { {}, {}, {}, 8_dp } }
         } with_style { Padding { 8_dp } }
-    });
+    } with_style { Expanding {2, 2} });
 
     setCustomAss({
         Padding { 0_dp }
@@ -65,8 +62,6 @@ MainWindow::MainWindow():
     ProjectConfig::setupPages(mPages);
 
     setPage(0);
-
-    pack();
 }
 
 void MainWindow::setPage(int pageId) {

@@ -36,7 +36,7 @@ void WelcomePage::inflate(const _<AViewContainer>& container, InstallerModel& mo
     container->setLayout(_new<AStackedLayout>());
     container->addView(
         Horizontal {
-            _new<AImageView>(AUrl(":img/side.png")) with_style { FixedSize { 100_dp, 300_dp } },
+            //_new<AImageView>(AUrl(":img/side.png")) with_style { FixedSize { 100_dp, 300_dp } },
             Vertical {
                 _new<ALabel>("aui.installer.welcome_title") << ".title",
                 _new<ALabel>("aui.installer.welcome_desc")

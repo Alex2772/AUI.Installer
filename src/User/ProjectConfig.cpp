@@ -15,7 +15,9 @@
  */
 void ProjectConfig::setupPages(AVector<_<IPage>>& pages) {
     pages << _new<WelcomePage>()
+          #ifdef CPACK_RESOURCE_FILE_LICENSE
           << _new<LicensePage>()
+          #endif
           << _new<InstallDirPage>()
           << _new<InstallingPage>();
 }
